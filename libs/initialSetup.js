@@ -1,6 +1,5 @@
 import Dependencie from '../models/Dependencie';
-
-const Role = require('../models/Roles');
+import Role from'../models/Roles';
 
 export const createRoles = async () => {
     try {
@@ -21,10 +20,10 @@ export const createDependencies = async () => {
         const count = await Dependencie.estimatedDocumentCount();
         if(count > 0) return;
         const values = await Promise.all([
-            new Dependencie({name: "Recursos Humanos", phone: 3123211}).save(),
-            new Dependencie({name: "Fabrica", phone: 3123212}).save(),
-            new Dependencie({name: "Comercial", phone: 3123213}).save(),
-            new Dependencie({name: "Gerencia", phone: 3123214}).save(),
+            new Dependencie({nameDependencie: "Recursos Humanos", phone: 3123211}).save(),
+            new Dependencie({nameDependencie: "Fabrica", phone: 3123212}).save(),
+            new Dependencie({nameDependencie: "Comercial", phone: 3123213}).save(),
+            new Dependencie({nameDependencie: "Gerencia", phone: 3123214}).save(),
         ])
     } catch (error) {
         console.error(error);

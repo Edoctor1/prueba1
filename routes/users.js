@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-import config from '../config';
-import { authJwt, verifySignup } from "../middlewares"
-import Dependencie from '../models/Dependencie';
-//const { check } = require('express-validator');
+const { authJwt, verifySignup } = require('../middlewares');
 const Role = require('../models/Roles');
 const User = require('../models/User');
+const Dependencie = require('../models/Dependencie');
+const config = require('../config');
+//import config from '../config';
+//import { authJwt, verifySignup } from "../middlewares"
+//import Dependencie from '../models/Dependencie';
+
 
 
 
@@ -16,19 +19,22 @@ router.get("/users", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isEmployee],
     res.status(200).json(users);
 });
 
-router.get("/users/v2", authJwt.verifyToken, async (req, res) => {
-    const users2 = await User.find({ names: req.body.name, email: req.params.email, dependencie: req.params.dependencie }).sort().exec();
-    res.status(200).json({users2});
-})
+router.get("/users/v2", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isEmployee], async (req, res) => {
+    const users2 = await User.find().limit(20).sort({_id: -1}).exec();
+    res.status(200).json({
+        users2
+       });
+});
 
 //Obtener un usuario
 router.get("/users/especificUser/:id", authJwt.verifyToken, async (req, res) => {
     const especificUser = await User.findById(req.params.id);
     res.status(200).json(especificUser);
-})
+});
 
 //Crear Usuario
 router.post("/users/add", [authJwt.verifyToken, authJwt.isAdmin], async (req, res) => {
+    try {
     const { names, surNames, cellPhone, email, password, dependencie, state, roles } = req.body;
     const errors = [];
     if(!names){
@@ -44,8 +50,8 @@ router.post("/users/add", [authJwt.verifyToken, authJwt.isAdmin], async (req, re
         errors.push({ text: 'La contraseña debe ser mayor a 4 caracteres' });
     } else{
         const emailUser = await User.findOne({email: email});
-        if(emailUser){
-            req.flash("error_msg", "El email registrado se encuentra en uso");
+        if(!emailUser){
+            errors.push( { text: "El email registrado se encuentra en uso"});
         }
     }
     const newUser = new User({ names, surNames, cellPhone, email, password, dependencie, state, roles });
@@ -54,7 +60,7 @@ router.post("/users/add", [authJwt.verifyToken, authJwt.isAdmin], async (req, re
         newUser.roles = foundRoles.map(role => role._id)
     } else {
         const role = await Role.findOne({name: "Empleado"})
-        newUser.roles = [role._id];
+        newUser.role = [role._id];
     }
     if(dependencie){
         const foundDependencies = await Dependencie.find({nameDependencie: {$in: dependencie}})
@@ -79,6 +85,10 @@ router.post("/users/add", [authJwt.verifyToken, authJwt.isAdmin], async (req, re
         state: state,
         roles: roles
     })
+    } catch (error) {
+    return res.status(500).json(error.message);
+    }
+    
 });
 router.post("/users/add", [
     authJwt.verifyToken,
@@ -87,6 +97,7 @@ router.post("/users/add", [
 ]);
 //Editar Usuario
 router.put("/users/edit-user/:id", [authJwt.verifyToken, authJwt.isAdmin], async (req, res) => {
+    try{
     const { names, surNames, cellPhone, email, password, dependencie, state, role } = req.body;
     await User.findByIdAndUpdate(req.params.id, { names, surNames, cellPhone, email, password, dependencie, state, role });
     req.flash('success_msg', 'Usuario Actualizado satisfactoriamente');
@@ -100,15 +111,23 @@ router.put("/users/edit-user/:id", [authJwt.verifyToken, authJwt.isAdmin], async
         state: state,
         role: role
     });
-})
+} catch{
+    return res.status(500).json(error.message);
+}
+});
+
 //Eliminar Usuario
 router.delete("/users/delete/:id", [authJwt.verifyToken, authJwt.isAdmin], async (req, res) => {
-    await User.findByIdAndDelete(req.params.id);
-    req.flash("success_msg", "Usuario Eliminado");
-    res.status(200).json({
-        mensaje: "Usuario Eliminado"
-    });
-})
+    try{
+        await User.findByIdAndDelete(req.params.id);
+        req.flash("success_msg", "Usuario Eliminado");
+        res.status(200).json({
+            mensaje: "Usuario Eliminado"
+        });
+    } catch{
+    return res.status(500).json(error.message);
+    }
+});
 
 
 module.exports = router;

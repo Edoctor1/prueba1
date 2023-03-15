@@ -3,13 +3,12 @@ const bodyParser = require('body-parser');
 const connectFlash = require('connect-flash');
 const passport = require('passport');
 const expressSession = require('express-session');
-const { createRoles } = require('./libs/initialSetup')
-//const ConnectMongo = require('connect-mongo')(expressSession);
+const { createRoles, createDependencies } = require('./libs/initialSetup')
 
 const app = express();
 createRoles();
+createDependencies();
 require('./db');
-//require('./config/passport');
 
 //Middlewares Globales
 app.use(bodyParser.urlencoded({

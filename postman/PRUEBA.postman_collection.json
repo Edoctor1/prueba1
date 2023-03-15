@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\" : \"email6@mail.com\",\r\n    \"password\": \"Pruebas123@\"\r\n}",
+					"raw": "{\r\n    \"email\" : \"admin5@mail.com\",\r\n    \"password\": \"Pruebas123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -45,7 +45,13 @@
 			"name": "Dependencias",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTFlZjQ0YjliMzBkZTMwZjAxZmE2MCIsImlhdCI6MTY3ODg5ODcyMiwiZXhwIjoxNjc4OTg1MTIyfQ.KVRQIxGBcbmZMaxc4MjjPd-nHpAoK9F2Mjh_5o3y70Y",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:3000/dependencies",
 					"protocol": "http",
@@ -64,10 +70,21 @@
 			"name": "Crear Dependencia",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTFlZjQ0YjliMzBkZTMwZjAxZmE2MCIsImlhdCI6MTY3ODg5NzAwOSwiZXhwIjoxNjc4OTgzNDA5fQ.aOe81kpzCyRu6FqpTCVUrRoxezYNVb2dS5pFMAMblmQ",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nameDependencie\" : \"Gerencia\",\r\n    \"phone\": \"304370\"\r\n}",
+					"raw": "{\r\n    \"nameDependencie\" : \"Gerencia\",\r\n    \"phone\": \"3333333\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -93,7 +110,13 @@
 			"name": "Lista Usuarios",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDg3YzQwODc1Mzg0MWQ2MzhlYjQ2YyIsImlhdCI6MTY3ODgxODM1NSwiZXhwIjoxNjc4OTA0NzU1fQ.Nms-Jv4sdrVN0RQIyWEDz5JzllJQKhjCu3ra5U82WIM",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:3000/users",
 					"protocol": "http",
@@ -112,9 +135,15 @@
 			"name": "Obtener Usuario Especifico",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTFlZjQ0YjliMzBkZTMwZjAxZmE2MCIsImlhdCI6MTY3ODg5ODcyMiwiZXhwIjoxNjc4OTg1MTIyfQ.KVRQIxGBcbmZMaxc4MjjPd-nHpAoK9F2Mjh_5o3y70Y",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/users/especificUser/:id",
+					"raw": "http://localhost:3000/users/especificUser/6407a209181f5a9efd235e26",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -123,13 +152,7 @@
 					"path": [
 						"users",
 						"especificUser",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "6407a209181f5a9efd235e26"
-						}
+						"6407a209181f5a9efd235e26"
 					]
 				}
 			},
@@ -139,10 +162,16 @@
 			"name": "Crear Usuario",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDg3YzQwODc1Mzg0MWQ2MzhlYjQ2YyIsImlhdCI6MTY3ODg5Njc0OSwiZXhwIjoxNjc4OTgzMTQ5fQ.8tglc2W07QYcMkRn7Kr-tUIH8uX3UNGYzDQ19DIni74",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"names\": \"Test\",\r\n    \"surNames\": \"User 2\",\r\n    \"cellPhone\": \"3043659876\",\r\n    \"email\": \"email11@mail.com\",\r\n    \"password\": \"Pruebas123@\",\r\n    \"dependencie\": [\"6407a2ce181f5a9efd235e2d\"],\r\n    \"state\": \"Activo\",\r\n    \"rol\": [\"Empleado\"]\r\n}",
+					"raw": "{\r\n    \"names\": \"Empleado\",\r\n    \"surNames\": \"Test 6\",\r\n    \"cellPhone\": \"3043659899\",\r\n    \"email\": \"admin6@mail.com\",\r\n    \"password\": \"Pruebas123\",\r\n    \"dependencie\": [\"6411f0350d1068012e37b0ac\"],\r\n    \"state\": \"Activo\",\r\n    \"rol\": [\"Empleado\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -168,10 +197,16 @@
 			"name": "Editar Usuario",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDg3YzQwODc1Mzg0MWQ2MzhlYjQ2YyIsImlhdCI6MTY3ODg5NTQ2NCwiZXhwIjoxNjc4OTgxODY0fQ.BrxSx3IXKh-lEKr7P3jml4bFcj4Yrs0IHD0XHykGY7E",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"names\": \"User\",\r\n    \"surNames\": \"Test Edited\",\r\n    \"cellPhone\": \"3043659878\",\r\n    \"email\": \"email4@mail.com\",\r\n    \"password\": \"Pruebas123@\",\r\n    \"dependencie\": \"Comercial\",\r\n    \"state\": true,\r\n    \"rol\": \"Administrador\"\r\n}",
+					"raw": "{\r\n    \"names\": \"Administrador\",\r\n    \"surNames\": \"Test 2\",\r\n    \"cellPhone\": \"3043659879\",\r\n    \"email\": \"admin2@mail.com\",\r\n    \"dependencie\": [\"64087acb77f5dfbfd35e0cdd\"],\r\n    \"state\": true,\r\n    \"rol\": \"Administrador\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -179,7 +214,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/users/edit-user/6407a209181f5a9efd235e26",
+					"raw": "http://localhost:3000/users/edit-user/6411ead23a3a364536d2e6d5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -188,7 +223,7 @@
 					"path": [
 						"users",
 						"edit-user",
-						"6407a209181f5a9efd235e26"
+						"6411ead23a3a364536d2e6d5"
 					]
 				}
 			},
@@ -198,7 +233,13 @@
 			"name": "Eliminar Usuario",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTFlZjQ0YjliMzBkZTMwZjAxZmE2MCIsImlhdCI6MTY3ODg5ODcyMiwiZXhwIjoxNjc4OTg1MTIyfQ.KVRQIxGBcbmZMaxc4MjjPd-nHpAoK9F2Mjh_5o3y70Y",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -225,10 +266,28 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/users/v2",
+			"name": "Listar Usuarios V2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTFlZjQ0YjliMzBkZTMwZjAxZmE2MCIsImlhdCI6MTY3ODg5ODcyMiwiZXhwIjoxNjc4OTg1MTIyfQ.KVRQIxGBcbmZMaxc4MjjPd-nHpAoK9F2Mjh_5o3y70Y",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:3000/users/v2",
 					"protocol": "http",
