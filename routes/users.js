@@ -14,14 +14,14 @@ const config = require('../config');
 
 
 //Obtener Lista de usuarios
-router.get("/users", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isEmployee],  async (req, res) => {
+router.get("/users", /*[authJwt.verifyToken, authJwt.isAdmin, authJwt.isEmployee],*/  async (req, res) => {
     const users = await User.find().sort({_id:'desc'});
-    res.status(200).json(users);
+    res.sendStatus(200).json(users);
 });
 
 router.get("/users/v2", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isEmployee], async (req, res) => {
     const users2 = await User.find().limit(20).sort({_id: -1}).exec();
-    res.status(200).json({
+    res.sendStatus(200).json({
         users2
        });
 });
@@ -29,11 +29,11 @@ router.get("/users/v2", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isEmploye
 //Obtener un usuario
 router.get("/users/especificUser/:id", authJwt.verifyToken, async (req, res) => {
     const especificUser = await User.findById(req.params.id);
-    res.status(200).json(especificUser);
+    res.sendStatus(200).json(especificUser);
 });
 
 //Crear Usuario
-router.post("/users/add", [authJwt.verifyToken, authJwt.isAdmin], async (req, res) => {
+router.post("/users/add", /*[authJwt.verifyToken, authJwt.isAdmin],*/ async (req, res) => {
     try {
     const { names, surNames, cellPhone, email, password, dependencie, state, roles } = req.body;
     const errors = [];
@@ -75,7 +75,7 @@ router.post("/users/add", [authJwt.verifyToken, authJwt.isAdmin], async (req, re
         expiresIn: 86400 //24 hrs en segundos
     })
     req.flash("success_msg", "Usuario Registrado")
-    res.status(201).json({
+    res.sendStatus(201).json({
         names : names,
         surNames: surNames,
         cellPhone: cellPhone,
@@ -86,7 +86,7 @@ router.post("/users/add", [authJwt.verifyToken, authJwt.isAdmin], async (req, re
         roles: roles
     })
     } catch (error) {
-    return res.status(500).json(error.message);
+    return res.sendStatus(400).json(error.message);
     }
     
 });
@@ -101,7 +101,7 @@ router.put("/users/edit-user/:id", [authJwt.verifyToken, authJwt.isAdmin], async
     const { names, surNames, cellPhone, email, password, dependencie, state, role } = req.body;
     await User.findByIdAndUpdate(req.params.id, { names, surNames, cellPhone, email, password, dependencie, state, role });
     req.flash('success_msg', 'Usuario Actualizado satisfactoriamente');
-    res.status(200).json({
+    res.sendStatus(200).json({
         names : names,
         surNames: surNames,
         cellPhone: cellPhone,
@@ -112,7 +112,7 @@ router.put("/users/edit-user/:id", [authJwt.verifyToken, authJwt.isAdmin], async
         role: role
     });
 } catch{
-    return res.status(500).json(error.message);
+    return res.sendStatus(400).json(error.message);
 }
 });
 
@@ -121,11 +121,11 @@ router.delete("/users/delete/:id", [authJwt.verifyToken, authJwt.isAdmin], async
     try{
         await User.findByIdAndDelete(req.params.id);
         req.flash("success_msg", "Usuario Eliminado");
-        res.status(200).json({
+        res.sendStatus(200).json({
             mensaje: "Usuario Eliminado"
         });
     } catch{
-    return res.status(500).json(error.message);
+    return res.sendStatus(400).json(error.message);
     }
 });
 

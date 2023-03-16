@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-    res.json({ mensaje: '¡Hola Mundo!' })
+    res.json(["Hola, Bienvenido a la API prueba"])
 });
 
 app.listen(port)
